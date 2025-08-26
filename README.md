@@ -116,4 +116,4 @@ CREATE TABLE MENTION (
 
 ---
 
-**Note:** For a graphical ER diagram, consider using tools like dbdiagram.io or draw.io to visualize the schema. If you need to extend the schema to include additional metadata or relationships, you can add new tables or fields as needed for your research.
+
