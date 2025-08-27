@@ -1,3 +1,23 @@
+## CSV Data Mapping
+
+The file `alltyrannysimplified.csv` contains the raw data for this project. Each row represents a mention of "tyranny" in a newspaper page, with the following columns:
+
+- **id**: URL to the newspaper page on Chronicling America. Can be used to identify the newspaper, issue, and page.
+- **pub_date**: Publication date of the issue. Maps to `ISSUE.pub_date`.
+- **text**: The context in which "tyranny" is mentioned. Maps to `MENTION.context_text`.
+- **city**: City of publication. Helps describe the `NEWSPAPER` entity.
+- **state**: State of publication. Helps describe the `NEWSPAPER` entity.
+- **frequency**: Publication frequency (e.g., weekly, semiweekly). Maps to `NEWSPAPER` or can be stored as metadata.
+- **page_number**: The page number within the issue. Maps to `PAGE.page_number`.
+
+### Mapping Logic & Assumptions
+
+- The URL (`id`) may encode information about the newspaper, issue, and page, but additional parsing or external lookup may be needed to fully populate all schema fields.
+- If multiple cities or states are listed, the first or most prominent may be used for the `NEWSPAPER` entity.
+- Each row is treated as a unique mention, even if multiple mentions occur on the same page.
+- Additional fields (e.g., volume, issue number, publisher) may need to be inferred or supplemented from external sources if not present in the CSV.
+
+This mapping ensures that the CSV data can be imported into the relational schema for further analysis and research.
 # Newspaper Tyranny Mentions Database (Chronicling America 1730-1783)
 
 ## Project Overview
