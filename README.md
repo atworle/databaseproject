@@ -1,101 +1,99 @@
-## CSV Data Mapping
-
-The file `alltyrannysimplified.csv` contains the raw data for this project. Each row represents a mention of "tyranny" in a newspaper page, with the following columns:
-
-- **id**: URL to the newspaper page on Chronicling America. Can be used to identify the newspaper, issue, and page.
-- **pub_date**: Publication date of the issue. Maps to `ISSUE.pub_date`.
-- **text**: The context in which "tyranny" is mentioned. Maps to `MENTION.context_text`.
-- **city**: City of publication. Helps describe the `NEWSPAPER` entity.
-- **state**: State of publication. Helps describe the `NEWSPAPER` entity.
-- **frequency**: Publication frequency (e.g., weekly, semiweekly). Maps to `NEWSPAPER` or can be stored as metadata.
-- **page_number**: The page number within the issue. Maps to `PAGE.page_number`.
-
-### Mapping Logic & Assumptions
-
-- The URL (`id`) may encode information about the newspaper, issue, and page, but additional parsing or external lookup may be needed to fully populate all schema fields.
-- If multiple cities or states are listed, the first or most prominent may be used for the `NEWSPAPER` entity.
-- Each row is treated as a unique mention, even if multiple mentions occur on the same page.
-- Additional fields (e.g., volume, issue number, publisher) may need to be inferred or supplemented from external sources if not present in the CSV.
-
-This mapping ensures that the CSV data can be imported into the relational schema for further analysis and research.
-# Newspaper Tyranny Mentions Database (Chronicling America 1730-1783)
+# Newspaper Database (Chronicling America, 18th Century)
 
 ## Project Overview
 
-This project contains a relational database built from the Chronicling America database, specifically focused on every newspaper page that mentions "tyranny" from 1730 to 1783. The data model is designed to capture the relationships between publishers, newspapers, issues, pages, and individual mentions of tyranny. The schema below is intended to support historical research, text analysis, and exploration of the context in which tyranny was discussed in early American newspapers.
+This project builds a relational database from Chronicling America’s digitized newspapers, focusing on the **people and institutions behind print culture in early America**.  
+The database captures the **relationships between printers, their families, newspapers, political affiliations, publication geography, and the occurrence of key terms (e.g., "tyranny")**, with issues and pages serving as the structural backbone.  
 
+The goal is to make visible how networks of printers — such as the Franklin family and their associates — shaped the circulation of news, ideas, and political discourse.
+
+---
 
 ## Data Model Summary
 
 ### Entities and Relationships
 
-- **PUBLISHER**: Each publisher can publish multiple newspapers. Includes name, lifespan, affiliation, and notes.
-- **NEWSPAPER**: Each newspaper is published by one publisher and can have multiple issues. Includes title, place, years, and publisher reference.
-- **ISSUE**: Each issue belongs to one newspaper and can have multiple pages. Includes publication date, volume, and issue number.
-- **PAGE**: Each page belongs to one issue and can include multiple mentions. Includes page number and issue reference.
-- **MENTION**: Each mention is associated with one page and represents a specific instance of "tyranny" being mentioned. Includes context text, column/line, and position in text.
+- **PRINTER**: Represents an individual printer or publisher. Includes biographical information (lifespan, place of activity, notes), **political affiliation**, and **family connections**.  
+- **PRINTER_RELATIONSHIP**: Captures ties between printers, such as **family ties (e.g., uncle/niece, father/son)** or **apprenticeship/mentorship**.  
+- **NEWSPAPER**: Each newspaper is associated with one or more printers across its lifespan. Includes title, place, start/end years, and associated printer(s).  
+- **ISSUE**: Each issue belongs to one newspaper and represents a specific publication date. Includes publication date, volume, issue number, and **count of "tyranny" mentions**.  
+- **PAGE**: Each page belongs to one issue. Provides page-level metadata (page number).  
 
+---
 
 ### ER Diagram (ASCII Art)
 
-```
-[PUBLISHER]---<publishes>---{NEWSPAPER}---<contains>---{ISSUE}---<has>---{PAGE}---<includes>---{MENTION}
+[PRINTER]---<publishes>---{NEWSPAPER}---<contains>---{ISSUE}---<has>---{PAGE}
+|
+|<--related_to-->{PRINTER_RELATIONSHIP}
 
-PUBLISHER
+PRINTER
 +------------------+
-| publisher_id PK  |
-| name             |
-| lifespan         |
-| affiliation      |
-| notes            |
+| printer_id PK |
+| name |
+| lifespan |
+| affiliation |
+| political_view |
+| notes |
++------------------+
+
+PRINTER_RELATIONSHIP
++------------------+
+| rel_id PK |
+| printer1_id FK |
+| printer2_id FK |
+| relationship | (e.g., "brother", "apprentice", "business partner")
 +------------------+
 
 NEWSPAPER
 +------------------+
-| newspaper_id PK  |
-| title            |
-| place            |
-| start_year       |
-| end_year         |
-| publisher_id FK  |
+| newspaper_id PK |
+| title |
+| place |
+| start_year |
+| end_year |
+| printer_id FK |
 +------------------+
 
 ISSUE
-+------------------+
-| issue_id PK      |
-| newspaper_id FK  |
-| pub_date         |
-| volume_number    |
-| issue_number     |
-+------------------+
++-------------------------+
+| issue_id PK |
+| newspaper_id FK |
+| pub_date DATE |
+| volume_number |
+| issue_number |
+| tyranny_mentions_count |
++-------------------------+
 
 PAGE
 +------------------+
-| page_id PK       |
-| issue_id FK      |
-| page_number      |
+| page_id PK |
+| issue_id FK |
+| page_number |
 +------------------+
 
-MENTION
-+------------------+
-| mention_id PK    |
-| page_id FK       |
-| context_text     |
-| column_line      |
-| position_in_text |
-+------------------+
-```
 
+---
 
 ### SQL Schema
 
 ```sql
-CREATE TABLE PUBLISHER (
-    publisher_id INTEGER PRIMARY KEY,
+CREATE TABLE PRINTER (
+    printer_id INTEGER PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     lifespan VARCHAR(255),
     affiliation VARCHAR(255),
+    political_view VARCHAR(255),
     notes TEXT
+);
+
+CREATE TABLE PRINTER_RELATIONSHIP (
+    rel_id INTEGER PRIMARY KEY,
+    printer1_id INTEGER NOT NULL,
+    printer2_id INTEGER NOT NULL,
+    relationship VARCHAR(100),
+    FOREIGN KEY (printer1_id) REFERENCES PRINTER(printer_id),
+    FOREIGN KEY (printer2_id) REFERENCES PRINTER(printer_id)
 );
 
 CREATE TABLE NEWSPAPER (
@@ -104,8 +102,8 @@ CREATE TABLE NEWSPAPER (
     place VARCHAR(255),
     start_year INTEGER,
     end_year INTEGER,
-    publisher_id INTEGER,
-    FOREIGN KEY (publisher_id) REFERENCES PUBLISHER(publisher_id)
+    printer_id INTEGER,
+    FOREIGN KEY (printer_id) REFERENCES PRINTER(printer_id)
 );
 
 CREATE TABLE ISSUE (
@@ -114,6 +112,7 @@ CREATE TABLE ISSUE (
     pub_date DATE,
     volume_number VARCHAR(50),
     issue_number VARCHAR(50),
+    tyranny_mentions_count INTEGER DEFAULT 0,
     FOREIGN KEY (newspaper_id) REFERENCES NEWSPAPER(newspaper_id)
 );
 
@@ -124,16 +123,5 @@ CREATE TABLE PAGE (
     FOREIGN KEY (issue_id) REFERENCES ISSUE(issue_id)
 );
 
-CREATE TABLE MENTION (
-    mention_id INTEGER PRIMARY KEY,
-    page_id INTEGER,
-    context_text TEXT,
-    column_line VARCHAR(50),
-    position_in_text INTEGER,
-    FOREIGN KEY (page_id) REFERENCES PAGE(page_id)
-);
-```
-
----
 
 
