@@ -98,7 +98,15 @@ All tables are linked via **foreign keys**, ensuring relational integrity.
 | cannonical_name| TEXT | Standardized series name |
 | notes        | TEXT | Additional notes |
 
+## References
+
+- Edward L. Jacobson, *Early American Printers and Their Networks* (New York: Columbia University Press, 1948).  
+- Isaiah Thomas, *The History of Printing in America* (Boston: Isaiah Thomas, 1810).
+- Library of Congress, *Chronicling America: Historic American Newspapers*, https://www.loc.gov/collections/chronicling-america/?dl=page&end_date=1783-09-30&ops=AND&qs=tyranny&searchType=advanced&start_date=1736-09-03 
+
+
 ## SQL Schema Example
+
 
 ```sql
 CREATE TABLE PRINTER (
@@ -151,3 +159,4 @@ CREATE TABLE NEWSPAPER_SERIES (
     notes TEXT,
     type TEXT
 );
+
