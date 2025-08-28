@@ -1,126 +1,140 @@
-# Newspaper Database (Chronicling America, 18th Century)
+Newspaper Database (Chronicling America, 18th Century)
+Project Overview
 
-## Project Overview
+This project builds a relational database from Chronicling America’s digitized newspapers, focusing on the people and institutions behind print culture in early America (18th century).
 
-This project builds a relational database from Chronicling America’s digitized newspapers, focusing on the **people and institutions behind print culture in early America**.  
-The database captures the **relationships between printers, their families, newspapers, political affiliations, publication geography, and the occurrence of key terms (e.g., "tyranny")**, with issues and pages serving as the structural backbone.  
+The database is designed for historical research into printer networks, family dynasties, apprenticeships, and political discourse, with particular attention to the circulation of the word “tyranny.”
 
-The goal is to make visible how networks of printers — such as the Franklin family and their associates — shaped the circulation of news, ideas, and political discourse.
+By linking biographical data, newspaper metadata, and textual mentions, the database enables analysis of who printed what, when, and where certain ideas appeared, while preserving relationships between printers and newspapers.
 
----
+Data Model Summary
 
-## Data Model Summary
-
-### Entities and Relationships
-
-- **PRINTER**: Represents an individual printer or publisher. Includes biographical information (lifespan, place of activity, notes), **political affiliation**, and **family connections**.  
-- **PRINTER_RELATIONSHIP**: Captures ties between printers, such as **family ties (e.g., uncle/niece, father/son)** or **apprenticeship/mentorship**.  
-- **NEWSPAPER**: Each newspaper is associated with one or more printers across its lifespan. Includes title, place, start/end years, and associated printer(s).  
-- **ISSUE**: Each issue belongs to one newspaper and represents a specific publication date. Includes publication date, volume, issue number, and **count of "tyranny" mentions**.  
-- **PAGE**: Each page belongs to one issue. Provides page-level metadata (page number).  
-
----
-
-### ER Diagram (ASCII Art)
-
-[PRINTER]---<publishes>---{NEWSPAPER}---<contains>---{ISSUE}---<has>---{PAGE}
-|
-|<--related_to-->{PRINTER_RELATIONSHIP}
+The database is structured around four main tables:
 
 PRINTER
-+------------------+
-| printer_id PK |
-| name |
-| lifespan |
-| affiliation |
-| political_view |
-| notes |
-+------------------+
+
+Biographical data for printers or publishers
+
+Political affiliation, notes, and source citations
 
 PRINTER_RELATIONSHIP
-+------------------+
-| rel_id PK |
-| printer1_id FK |
-| printer2_id FK |
-| relationship | (e.g., "brother", "apprentice", "business partner")
-+------------------+
+
+Family ties, apprenticeships, or business partnerships
+
+Each relationship references two printers and a source
 
 NEWSPAPER
-+------------------+
-| newspaper_id PK |
-| title |
-| place |
-| start_year |
-| end_year |
-| printer_id FK |
-+------------------+
 
-ISSUE
-+-------------------------+
-| issue_id PK |
-| newspaper_id FK |
-| pub_date DATE |
-| volume_number |
-| issue_number |
-| tyranny_mentions_count |
-+-------------------------+
+Newspaper metadata (title, location, start/end years)
 
-PAGE
-+------------------+
-| page_id PK |
-| issue_id FK |
-| page_number |
-+------------------+
+Links to printers via foreign key
 
+MENTIONS
 
----
+Each row is a single occurrence of the word “tyranny”
 
-### SQL Schema
+Includes date, page, issue, and newspaper reference
 
-```sql
+Optionally stores URL or snippet of the mention
+
+All tables are linked via foreign keys, ensuring relational integrity.
+
+Entity–Relationship Diagram (ASCII)
+[PRINTER]---<publishes>---{NEWSPAPER}---<contains>---{MENTIONS}
+   |
+   |<--related_to-->{PRINTER_RELATIONSHIP}
+
+Tables
+PRINTER
+Field	Type	Description
+printer_id (PK)	INTEGER	Unique identifier
+name	TEXT	Printer’s full name
+lifespan	TEXT	Birth–death years
+affiliation	TEXT	Institutional/family affiliation
+political_view	TEXT	Political leaning
+notes	TEXT	Additional notes
+source_id (FK)	INTEGER	Citation for biographical info
+PRINTER_RELATIONSHIP
+Field	Type	Description
+rel_id (PK)	INTEGER	Unique relationship ID
+printer1_id (FK)	INTEGER	First printer
+printer2_id (FK)	INTEGER	Second printer
+relationship	TEXT	Type (e.g., apprentice, brother, partner)
+source_id (FK)	INTEGER	Citation for relationship
+NEWSPAPER
+Field	Type	Description
+newspaper_id (PK)	INTEGER	Unique ID
+title	TEXT	Newspaper title
+place	TEXT	City/colony of publication
+start_year	INTEGER	Earliest year
+end_year	INTEGER	Latest year
+printer_id (FK)	INTEGER	Linked printer
+source_id (FK)	INTEGER	Citation for newspaper info
+MENTIONS
+Field	Type	Description
+mention_id (PK)	INTEGER	Unique mention ID
+newspaper_id (FK)	INTEGER	Newspaper reference
+date	DATE	Publication date
+issue_number	TEXT	Issue number
+page_number	INTEGER	Page number
+context	TEXT	Snippet or quote
+url	TEXT	Page URL
+SOURCES
+Field	Type	Description
+source_id (PK)	INTEGER	Unique ID
+full_citation	TEXT	Full Chicago-style citation
+short_citation	TEXT	Short form for quick reference
+type	TEXT	Book, article, archive, etc.
+SQL Schema Example
 CREATE TABLE PRINTER (
     printer_id INTEGER PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    lifespan VARCHAR(255),
-    affiliation VARCHAR(255),
-    political_view VARCHAR(255),
-    notes TEXT
+    name TEXT NOT NULL,
+    lifespan TEXT,
+    affiliation TEXT,
+    political_view TEXT,
+    notes TEXT,
+    source_id INTEGER
 );
 
 CREATE TABLE PRINTER_RELATIONSHIP (
     rel_id INTEGER PRIMARY KEY,
     printer1_id INTEGER NOT NULL,
     printer2_id INTEGER NOT NULL,
-    relationship VARCHAR(100),
+    relationship TEXT,
+    source_id INTEGER,
     FOREIGN KEY (printer1_id) REFERENCES PRINTER(printer_id),
-    FOREIGN KEY (printer2_id) REFERENCES PRINTER(printer_id)
+    FOREIGN KEY (printer2_id) REFERENCES PRINTER(printer_id),
+    FOREIGN KEY (source_id) REFERENCES SOURCES(source_id)
 );
 
 CREATE TABLE NEWSPAPER (
     newspaper_id INTEGER PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    place VARCHAR(255),
+    title TEXT NOT NULL,
+    place TEXT,
     start_year INTEGER,
     end_year INTEGER,
     printer_id INTEGER,
-    FOREIGN KEY (printer_id) REFERENCES PRINTER(printer_id)
+    source_id INTEGER,
+    FOREIGN KEY (printer_id) REFERENCES PRINTER(printer_id),
+    FOREIGN KEY (source_id) REFERENCES SOURCES(source_id)
 );
 
-CREATE TABLE ISSUE (
-    issue_id INTEGER PRIMARY KEY,
+CREATE TABLE MENTIONS (
+    mention_id INTEGER PRIMARY KEY,
     newspaper_id INTEGER,
-    pub_date DATE,
-    volume_number VARCHAR(50),
-    issue_number VARCHAR(50),
-    tyranny_mentions_count INTEGER DEFAULT 0,
+    date DATE,
+    issue_number TEXT,
+    page_number INTEGER,
+    context TEXT,
+    url TEXT,
     FOREIGN KEY (newspaper_id) REFERENCES NEWSPAPER(newspaper_id)
 );
 
-CREATE TABLE PAGE (
-    page_id INTEGER PRIMARY KEY,
-    issue_id INTEGER,
-    page_number INTEGER,
-    FOREIGN KEY (issue_id) REFERENCES ISSUE(issue_id)
+CREATE TABLE SOURCES (
+    source_id INTEGER PRIMARY KEY,
+    full_citation TEXT,
+    short_citation TEXT,
+    type TEXT
 );
 
 

@@ -1,0 +1,24 @@
+newspaper_id,series_id,title,start_year,end_year,place,printer_id
+1,1,The New Hampshire Gazette (1756–1763),1756,1763,Portsmouth, N.H.,TBD
+2,1,The New-Hampshire Gazette and Historical Chronicle (1763–1776),1763,1776,Portsmouth, N.H.,TBD
+3,1,The Freeman's Journal, Or, New-Hampshire Gazette (1776–1778),1776,1778,Portsmouth, N.H.,TBD
+4,1,New-Hampshire Gazette, Or, State Journal and General Advertiser (1778–1781),1778,1781,Portsmouth, N.H.,TBD
+5,1,The New-Hampshire Gazette and General Advertiser (1781–1784),1781,1784,Portsmouth, N.H.,TBD
+6,2,The Virginia Gazette (Williamsburg, 1736–1781),1736,1781,Williamsburg, Va.,TBD
+7,2,The Virginia Gazette (Williamsburg, 1766–1776),1766,1776,Williamsburg, Va.,TBD
+8,2,The Virginia Gazette (Williamsburg, 1775–1780),1775,1780,Williamsburg, Va.,TBD
+9,3,The Massachusetts Spy, Or, Thomas's Boston Journal (1772–1775),1772,1775,Boston, Mass.,TBD
+10,3,The Massachusetts Spy (1770–1772),1770,1772,Boston, Mass.,TBD
+11,4,The Newport Gazette (1777–1779),1777,1779,Newport, R.I.,TBD
+12,5,The Pennsylvania Journal, Or, Weekly Advertiser (1742–1793),1742,1793,Philadelphia, Pa.,TBD
+13,6,The Constitutional Courant (1765),1765,1765,Woodbridge, N.J.,TBD
+14,7,The American Gazette, Or, the Constitutional Journal (1776),1776,1776,Salem, Mass.,TBD
+15,8,The Boston Gazette, Or, Country Journal (1755–1793),1755,1793,Boston, Mass.,TBD
+16,9,The New York Packet, and the American Advertiser (1776–1784),1776,1784,New York, N.Y.,TBD
+17,2,Rind's Virginia Gazette (1766),1766,1766,Williamsburg, Va.,TBD
+18,10,The Connecticut Courant and Hartford Weekly Intelligencer (1774–1778),1774,1778,Hartford, Conn.,TBD
+19,11,The Essex Journal, and New-Hampshire Packet (1775–1776),1775,1776,Newbury-Port, Mass.,TBD
+20,12,The New-England Chronicle (1776),1776,1776,Boston, Mass.,TBD
+21,13,The Pennsylvania Evening Post (1775–1781),1775,1781,Philadelphia, Pa.,TBD
+22,14,The Pennsylvania Gazette (1729–1778),1729,1778,Philadelphia, Pa.,TBD
+23,15,The Pennsylvania Ledger, Or, the Virginia, Maryland, Pennsylvania, & New-Jersey Weekly Advertiser (1775–1776),1775,1776,Philadelphia, Pa.,TBD
