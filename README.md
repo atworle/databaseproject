@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-This project builds a relational database from Chronicling America’s digitized newspapers, focusing on the **people and institutions behind print culture in early America (18th century)**.
+This project builds a relational database from Chronicling America’s digitized newspapers, focusing on mentions of the word “tyranny” and the newspapers and printers associated with them in 18th century America.
 
-The database is designed for historical research into printer networks, family dynasties, apprenticeships, and political discourse, with particular attention to the circulation of the word **“tyranny.”**
+The database allows researchers to analyze who published what, when certain ideas appeared, and how newspapers and printers are connected, preserving relationships between printers, newspapers, and the occurrences of political language.
 
-By linking biographical data, newspaper metadata, and textual mentions, the database enables analysis of **who printed what, when, and where certain ideas appeared**, while preserving relationships between printers and newspapers.
+
 
 ---
 
@@ -31,8 +31,8 @@ The database is structured around **five main tables**:
 - Includes date, page, issue, and newspaper reference  
 - Optionally stores URL or snippet of the mention  
 
-### SOURCES
-- Citation table with full and short Chicago-style references  
+### Newspaper_series
+- Standardized names for newspaper series (e.g., "Boston News-Letter") 
 
 All tables are linked via **foreign keys**, ensuring relational integrity.
 
