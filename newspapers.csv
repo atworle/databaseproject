@@ -1,24 +1,24 @@
 newspaper_id,series_id,title,start_year,end_year,place,printer_id
-1,1,"the massachusetts spy, or, thomas's boston journal (boston [mass.]) 1772-1775",1756,1763,Portsmouth N.H.,TBD
-2,1,"the virginia gazette (williamsburg, va.) 1766-1776",1763,1776,Portsmouth N.H.,TBD
-3,1,the massachusetts spy (boston [mass.]) 1770-1772,1776,1778,Portsmouth N.H.,TBD
-4,1,"new-hampshire gazette, or, state journal and general advertiser (portsmouth, n.h.) 1778-1781",1778,1781,Portsmouth N.H.,TBD
-5,1,"the virginia gazette (williamsburg, va.) 1775-1780",1781,1784,Portsmouth N.H.,TBD
-6,2,"the constitutional courant (woodbridge, n.j.) 1765-1765",1736,1781,Williamsburg Va.,TBD
-7,2,"the new-hampshire gazette and historical chronicle (portsmouth, n.h.) 1763-1776",1766,1776,Williamsburg Va.,TBD
-8,2,"the freeman's journal, or, new-hampshire gazette (portsmouth, n.h.) 1776-1778",1775,1780,Williamsburg Va.,TBD
-9,3,"the pennsylvania evening post (philadelphia, pa.) 1775-1781",1772,1775,Boston Mass.,TBD
-10,3,"the pennsylvania gazette (philadelphia, pa.) 1729-1778",1770,1772,Boston Mass.,TBD
-11,4,the virginia gazette (williamsburg [va.]) 1736-1781,1777,1779,Newport R.I.,TBD
-12,5,the new-england chronicle (boston [mass.]) 1776-1776,1742,1793,Philadelphia Pa.,TBD
-13,6,the new-hampshire gazette and general advertiser (portsmouth [n.h.]) 1781-1784,1765,1765,Woodbridge N.J.,TBD
-14,7,"the boston gazette, or, country journal (boston [mass.]) 1755-1793",1776,1776,Salem Mass.,TBD
-15,8,"the essex journal, and new-hampshire packet (newbury-port [mass.]) 1775-1776",1755,1793,Boston Mass.,TBD
-16,9,the newport gazette (newport [r.i.]) 1777-1779,1776,1784,New York N.Y.,TBD
-17,2,"the pennsylvania ledger, or, the virginia, maryland, pennsylvania, & new-jersey weekly advertiser (philadelphia, pa.) 1775-1776",1766,1766,Williamsburg Va.,TBD
-18,10,"the connecticut courant and hartford weekly intelligencer (hartford, conn.) 1774-1778",1774,1778,Hartford Conn.,TBD
-19,11,"the new hampshire gazette (portsmouth, n.h.) 1756-1763",1775,1776,Newbury-Port Mass.,TBD
-20,12,"the pennsylvania journal, or, weekly advertiser (philadelphia, pa.) 1742-1793",1776,1776,Boston Mass.,TBD
-21,13,"the american gazette, or, the constitutional journal (salem, mass.) 1776-1776",1775,1781,Philadelphia Pa.,TBD
-22,14,rind's virginia gazette (williamsburg [va.]) 1766-1766,1729,1778,Philadelphia Pa.,TBD
-23,15,"the new york packet, and the american advertiser (new york [n.y.]) 1776-1784",1775,1776,Philadelphia Pa.,TBD
+1,1,"the massachusetts spy, or, thomas's boston journal (boston [mass.]) 1772-1775",1770,1775,Boston MA,Isaiah Thomas
+2,2,"the virginia gazette (williamsburg, va.) 1766-1776",1766,1776,Williamsburg VA,William Parks
+3,1,the massachusetts spy (boston [mass.]) 1770-1772,1770,1772,Boston MA,Isaiah Thomas
+4,3,"new-hampshire gazette, or, state journal and general advertiser (portsmouth, n.h.) 1778-1781",1778,1781,Portsmouth NH,Daniel Fowle
+5,2,"the virginia gazette (williamsburg, va.) 1775-1780",1775,1780,Williamsburg VA,William Parks
+6,4,"the constitutional courant (woodbridge, n.j.) 1765-1765",1765,1765,Woodbridge NJ,Isaac Collins
+7,3,"the new-hampshire gazette and historical chronicle (portsmouth, n.h.) 1763-1776",1763,1776,Portsmouth NH,Daniel Fowle
+8,3,"the freeman's journal, or, new-hampshire gazette (portsmouth, n.h.) 1776-1778",1776,1778,Portsmouth NH,Daniel Fowle
+9,5,"the pennsylvania evening post (philadelphia, pa.) 1775-1781",1775,1781,Philadelphia PA,Benjamin Towne
+10,6,"the pennsylvania gazette (philadelphia, pa.) 1729-1778",1729,1778,Philadelphia PA,Benjamin Franklin
+11,2,the virginia gazette (williamsburg [va.]) 1736-1781,1736,1781,Williamsburg VA,William Parks
+12,7,the new-england chronicle (boston [mass.]) 1776-1776,1776,1776,Boston MA,John Dunlap
+13,3,the new-hampshire gazette and general advertiser (portsmouth [n.h.]) 1781-1784,1781,1784,Portsmouth NH,Daniel Fowle
+14,8,"the boston gazette, or, country journal (boston [mass.]) 1755-1793",1755,1793,Boston MA,Thomas and John Fleet
+15,8,"the essex journal, and new-hampshire packet (newbury-port [mass.]) 1775-1776",1775,1776,Newburyport MA,Thomas and John Fleet
+16,9,the newport gazette (newport [r.i.]) 1777-1779,1777,1779,Newport RI,Clementina Rind
+17,10,"the pennsylvania ledger, or, the virginia, maryland, pennsylvania, & new-jersey weekly advertiser (philadelphia, pa.) 1775-1776",1775,1776,Philadelphia PA,Benjamin Towne
+18,11,"the connecticut courant and hartford weekly intelligencer (hartford, conn.) 1774-1778",1774,1778,Hartford CT,Thomas Green
+19,3,"the new hampshire gazette (portsmouth, n.h.) 1756-1763",1756,1763,Portsmouth NH,Daniel Fowle
+20,6,"the pennsylvania journal, or, weekly advertiser (philadelphia, pa.) 1742-1793",1742,1793,Philadelphia PA,William Bradford
+21,8,"the american gazette, or, the constitutional journal (salem, mass.) 1776-1776",1776,1776,Salem MA,Thomas and John Fleet
+22,12,rind's virginia gazette (williamsburg [va.]) 1766-1766,1766,1766,Williamsburg VA,William Rind
+23,13,"the new york packet, and the american advertiser (new york [n.y.]) 1776-1784",1776,1784,New York NY,John Holt

@@ -3,5 +3,4 @@ rel_id,printer1_id,printer2_id,relationship,source_id
 2,3,4,business partner,TBD
 3,5,6,mentor,TBD
 4,8,9,mentor,TBD
-5,7,8,acquaintance,TBD
 

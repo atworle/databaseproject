@@ -12,6 +12,7 @@ except sqlite3.Error as e:
 
 
 try:
+    cur.execute("DROP TABLE IF EXISTS printers")
     cur.execute('''
     CREATE TABLE IF NOT EXISTS printers (
         printer_id INTEGER PRIMARY KEY,
@@ -163,6 +164,7 @@ except Exception as e:
 
 
 try:
+    cur.execute("DROP TABLE IF EXISTS newspapers")
     cur.execute('''
     CREATE TABLE IF NOT EXISTS newspapers (
         newspaper_id INTEGER PRIMARY KEY,
@@ -171,8 +173,10 @@ try:
         start_year INTEGER,
         end_year INTEGER,
         place TEXT,
-        printer_id TEXT
-    )
+        printer_id INTEGER,
+        FOREIGN KEY (series_id) REFERENCES newspaper_series(series_id),
+        FOREIGN KEY (printer_id) REFERENCES printers(printer_id)
+    );
     ''')
     print("Created newspapers table")
 except sqlite3.Error as e:
