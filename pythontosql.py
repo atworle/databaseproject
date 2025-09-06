@@ -3,9 +3,9 @@ import sqlite3
 
 
 try:
-    conn = sqlite3.connect('printers.db')
+    conn = sqlite3.connect('printersv2.db')
     cur = conn.cursor()
-    print("Connected to printers.db")
+    print("Connected to printersv2.db")
 except sqlite3.Error as e:
     print(f"Error connecting to database: {e}")
     exit(1)
@@ -214,13 +214,16 @@ except Exception as e:
 
 
 try:
+    cur.execute("DROP TABLE IF EXISTS tyranny_mentions")
     cur.execute('''
     CREATE TABLE IF NOT EXISTS tyranny_mentions (
         mention_id INTEGER PRIMARY KEY,
+        newspaper_id INTEGER,
         aka TEXT,
         date TEXT,
         page_number INTEGER,
-        partof_title TEXT
+        partof_title TEXT,
+        FOREIGN KEY (newspaper_id) REFERENCES newspapers(newspaper_id)
     )
     ''')
     print("Created tyranny_mentions table")
@@ -240,12 +243,19 @@ try:
                 print(f"Skipping invalid row in alltyrannymentions.csv: {row}")
                 continue
             try:
-                mention_id = int(row[0].strip('"'))  
-                cur.execute('''
-                INSERT INTO tyranny_mentions (mention_id, aka, date, page_number, partof_title)
-                VALUES (?, ?, ?, ?, ?)
-                ''', (mention_id, row[1], row[2], int(row[3]), row[4]))
-                row_count += 1
+                mention_id = int(row[0].strip('"'))
+                newspaper_name = row[4].strip()  
+                cur.execute("SELECT newspaper_id FROM newspapers WHERE title = ?", (newspaper_name,))
+                result = cur.fetchone()
+                if result:
+                    newspaper_id = result[0]
+                    cur.execute('''
+                        INSERT INTO tyranny_mentions (mention_id, newspaper_id, aka, date, page_number, partof_title)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (mention_id, newspaper_id, row[1], row[2], int(row[3]), row[4]))
+                    row_count += 1
+                else:
+                     print(f"No matching newspaper found for '{newspaper_name}', skipping mention_id {mention_id}")
             except ValueError as e:
                 print(f"Error inserting row in alltyrannymentions.csv: {row}, Error: {e}")
                 continue
@@ -271,3 +281,6 @@ except sqlite3.Error as e:
 finally:
     conn.close()
     print("Database connection closed")
+
+
+
