@@ -14,15 +14,15 @@ The database allows researchers to analyze who published what, when certain idea
 
 The database is structured around **five main tables**:
 
-### PRINTER
+### PRINTERS
 - Biographical data for printers or publishers  
 - Political affiliation, notes, and source citations  
 
-### PRINTER_RELATIONSHIP
+### RELATIONSHIPS
 - Family ties, apprenticeships, or business partnerships  
 - Each relationship references two printers and a source  
 
-### NEWSPAPER
+### NEWSPAPERS
 - Newspaper metadata (title, location, start/end years)  
 - Links to printers via foreign key  
 
