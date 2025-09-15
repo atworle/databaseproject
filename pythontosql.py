@@ -3,9 +3,9 @@ import sqlite3
 
 
 try:
-    conn = sqlite3.connect('printersv2.db')
+    conn = sqlite3.connect('printers.db')
     cur = conn.cursor()
-    print("Connected to printersv2.db")
+    print("Connected to printers.db")
 except sqlite3.Error as e:
     print(f"Error connecting to database: {e}")
     exit(1)

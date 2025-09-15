@@ -1,6 +1,9 @@
 rel_id,printer1_id,printer2_id,relationship,source_id
-1,1,2,apprentice,TBD
 2,3,4,business partner,TBD
 3,5,6,mentor,TBD
-4,8,9,mentor,TBD
+4,7,8,business partner,TBD
+5,5,7,competitor,TBD
+6,9,10,competitor,TBD
+7,4,10,competitor,TBD
+
 
