@@ -65,7 +65,7 @@ All tables are linked via **foreign keys**, ensuring relational integrity.
 | printer1_id (FK) | INTEGER | First printer |
 | printer2_id (FK) | INTEGER | Second printer |
 | relationship | TEXT | Type (e.g., apprentice, brother, partner) |
-| source_id (FK) | INTEGER | Citation for relationship |
+| source_id    | INTEGER | Citation for relationship |
 
 ### NEWSPAPER
 
