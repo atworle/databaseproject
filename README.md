@@ -55,7 +55,7 @@ All tables are linked via **foreign keys**, ensuring relational integrity.
 | affiliation  | TEXT | Institutional/family affiliation |
 | political_view | TEXT | Political leaning |
 | notes        | TEXT | Additional notes |
-| source_id (FK) | INTEGER | Citation for biographical info |
+| source_id  | INTEGER | Citation for biographical info |
 
 ### PRINTER_RELATIONSHIP
 
